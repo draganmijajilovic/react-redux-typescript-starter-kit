@@ -15,16 +15,23 @@ export function login(action: any) {
     });
 }
 
-export function register(action: any) {
+export async function register(action: any) {
     const userdetails = action?.payload?.data;
 
-    return axios.post('register/', {
+    const response = await axios.post('register/', {
         username: userdetails.username,
         password: userdetails.password,
         email: userdetails.email,
         first_name: userdetails.first_name,
         last_name: userdetails.last_name,
     });
+    if (response.status === 201) {
+        return axios.post('/api-token-auth/', {
+            username: userdetails.username,
+            password: userdetails.password,
+        });
+    }
+    return response;
 }
 
 export function logout() {
