@@ -12,7 +12,6 @@ import { Dashboard } from '../feature/dashboard/components/dahsboard';
 
 type Props = {
     isLoggedIn: boolean;
-    name: string;
     logout: typeof actionTypes.fetchLogoutAsync.request;
 };
 
@@ -33,14 +32,13 @@ const Home = (props: Props) => {
             </MainContainer>
         </div>
     ) : (
-        <Redirect to={{ pathname: '/' }} />
-    );
+            <Redirect to={{ pathname: '/' }} />
+        );
 };
 
 const mapStateToProps = (state: AuthMainStateType) => {
     return {
         isLoggedIn: state.authState.isLoggedIn,
-        name: state.authState.name,
     };
 };
 

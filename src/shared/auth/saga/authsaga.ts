@@ -1,5 +1,5 @@
 import { call, put, takeLatest, all, fork } from 'redux-saga/effects';
-import actionTypes, { registerSuccess, registerError } from '../actions/actions';
+import actionTypes, { registerSuccess, registerError, loginSuccess } from '../actions/actions';
 import * as api from '../api/authapi';
 
 function* loginRequest(action: any): Generator {
@@ -8,7 +8,7 @@ function* loginRequest(action: any): Generator {
         const response: any = yield api.login(action);
         console.log('login response', response);
         if (response) {
-            yield api.login(action);
+            yield put(loginSuccess(response));
         }
     } catch (error) {
         console.log(error);
@@ -45,7 +45,6 @@ function* registerRequest(action: any): Generator {
 // }
 
 function* register() {
-    console.log('register');
     yield takeLatest(actionTypes.REGISTER_REQUEST, registerRequest);
 }
 function* login() {

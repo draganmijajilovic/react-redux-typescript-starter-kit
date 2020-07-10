@@ -18,12 +18,11 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 interface NavProps {
     open: boolean;
     toggleOpen: () => void;
-    name: string;
     logout: typeof fetchLogoutAsync.request;
 }
 
 function Navbar(props: NavProps) {
-    const { open, toggleOpen, logout, name } = props;
+    const { open, toggleOpen, logout } = props;
     const classes = useStyles();
     const toggleDrawer = () => {
         toggleOpen();
@@ -65,7 +64,7 @@ function Navbar(props: NavProps) {
                 >
                     {' '}
                 </Typography>
-                <div>{name}</div>
+                <div>imekorisnika</div>
                 <IconButton color="inherit">
                     <Badge badgeContent={4} color="secondary">
                         <NotificationsIcon />
@@ -81,7 +80,6 @@ function Navbar(props: NavProps) {
 
 const mapStateToProps = (state: LayoutRootType) => {
     return {
-        name: state.authState.name,
         open: state.layoutState.sidbarOpened,
     };
 };

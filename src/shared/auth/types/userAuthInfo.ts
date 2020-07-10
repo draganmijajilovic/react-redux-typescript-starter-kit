@@ -1,5 +1,5 @@
 export interface UserAuthInfo {
     isLoggedIn: boolean;
-    name: string;
     user: {};
+    token: string;
 }

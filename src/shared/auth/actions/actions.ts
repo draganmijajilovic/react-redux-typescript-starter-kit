@@ -60,4 +60,16 @@ export function login(data: any) {
     };
 }
 
+export function loginSuccess(data: any) {
+    return {
+        type: actionTypes.LOGIN_SUCCESS,
+        payload: data,
+    };
+}
+
+export function loginError() {
+    return {
+        type: actionTypes.LOGIN_ERROR,
+    };
+}
 // export type authActionTypes = ActionType<typeof fetchLoginAsync | typeof fetchLogoutAsync | typeof fetchRegisterAsync>;

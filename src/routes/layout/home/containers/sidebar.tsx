@@ -27,7 +27,6 @@ import brand from './../../../../assets/react-brand.png';
 interface SidebarProps {
     open: boolean;
     toggleOpen: typeof toggleSidebar;
-    name: string;
 }
 
 function Sidebar(props: SidebarProps) {
@@ -96,7 +95,6 @@ function Sidebar(props: SidebarProps) {
 
 const mapStateToProps = (state: LayoutRootType) => {
     return {
-        name: state.authState.name,
         open: state.layoutState.sidbarOpened,
     };
 };

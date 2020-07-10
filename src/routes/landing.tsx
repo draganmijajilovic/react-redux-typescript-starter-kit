@@ -45,7 +45,6 @@ const Landing = (props: Props) => {
 const mapStateToProps = (state: AuthState) => {
     return {
         isLoggedIn: state.authState.isLoggedIn,
-        name: state.authState.name,
     };
 };
 
