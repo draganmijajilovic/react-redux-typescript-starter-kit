@@ -21,18 +21,14 @@ export function login() {
 }
 
 export function register(action: any) {
-    console.log(action);
-    const userdetail: dataTypes.LoginDetails = {
-        username: 'jeeva',
-        password: 'pwd',
-    };
+    const userdetails = action.payload.data;
 
     return axios.post('register/', {
-        username: 'dgfdragan',
-        password: 'draggfdan',
-        email: 'gfd@gmail.com',
-        first_name: 'gangfde',
-        last_name: 'gandgfra',
+        username: userdetails.username,
+        password: userdetails.password,
+        email: userdetails.email,
+        first_name: userdetails.first_name,
+        last_name: userdetails.last_name,
     });
 }
 

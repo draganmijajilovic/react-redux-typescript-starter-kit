@@ -32,8 +32,8 @@ function Login(props: LoginProps) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
-    const [firstname, setFirstName] = useState('');
-    const [lastname, setLastname] = useState('');
+    const [first_name, setFirstName] = useState('');
+    const [last_name, setLastname] = useState('');
     const dispatch = useDispatch();
     const toggleLoginRegister = () => {
         toggleIslogin(!isLoginForm);
@@ -46,8 +46,8 @@ function Login(props: LoginProps) {
                 username,
                 password,
                 email,
-                firstname,
-                lastname
+                first_name,
+                last_name
             }
         }));
     }
