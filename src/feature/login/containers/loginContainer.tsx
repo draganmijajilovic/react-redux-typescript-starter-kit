@@ -15,6 +15,7 @@ import {
 } from '@material-ui/core';
 import { DynamicModuleLoader } from 'redux-dynamic-modules';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { register, login } from '../../../shared/auth/actions/actions';
 import { AuthModule } from '../../../shared/auth/module/module';
@@ -22,12 +23,14 @@ import { useStyles } from '../styles/login';
 import { logintheme } from '../styles/logintheme';
 
 interface LoginProps {
-    // login: typeof fetchLoginAsync.request;
-    // register: typeof fetchRegisterAsync.request;
+    isLoggedIn?: boolean;
 }
 
 function Login(props: LoginProps) {
+    const { isLoggedIn } = props;
     const classes = useStyles();
+
+
     const [isLoginForm, toggleIslogin] = useState(true);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -37,7 +40,10 @@ function Login(props: LoginProps) {
     const dispatch = useDispatch();
     const toggleLoginRegister = () => {
         toggleIslogin(!isLoginForm);
-        console.log(isLoginForm);
+    }
+
+    if (isLoggedIn) {
+        return <Redirect to={{ pathname: '/home/dashboard' }} />
     }
 
     const registerAction = () => {
@@ -210,19 +216,13 @@ function Login(props: LoginProps) {
     );
 }
 
-// const dispatchToProps = {
-//     login: fetchLoginAsync.request,
-//     register: fetchRegisterAsync.request,
-// };
-// const mapDispatchToProps = (dispatch: any) => {
-//     return {
-//         // login: () => dispatch({ type: LOGIN_REQUEST, user: 'NoriSte', password: 'password' }),
-//         // logout: () => dispatch({ type: LOGOUT }),
-//         register: dispatch({ type: fetchRegisterAsync.request, user: 'NoriSte', password: 'password' }),
-//     };
-// }
+const mapStateToProps = (state: any) => {
+    return {
+        isLoggedIn: state.authState.isLoggedIn,
+    };
+};
 
-const ConnectedLogin = connect(undefined, undefined)(Login);
+const ConnectedLogin = connect(mapStateToProps, undefined)(Login);
 
 export const LoginContainer = () => (
     <DynamicModuleLoader modules={[AuthModule]}>

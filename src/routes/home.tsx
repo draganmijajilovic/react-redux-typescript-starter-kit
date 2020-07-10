@@ -19,6 +19,7 @@ const Home = (props: Props) => {
     const match = useRouteMatch();
     const classes = useStyles();
     const { isLoggedIn } = props;
+    console.log(`${match.url}/dashboard`)
     return isLoggedIn ? (
         <div className={classes.root}>
             <CssBaseline />
