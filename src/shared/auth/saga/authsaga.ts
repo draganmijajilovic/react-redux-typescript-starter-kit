@@ -1,5 +1,5 @@
 import { call, put, takeLatest, all, fork } from 'redux-saga/effects';
-import actionTypes, { registerSuccess, registerError, loginSuccess } from '../actions/actions';
+import actionTypes, { registerSuccess, registerError, loginSuccess, getAllHotelsSuccess } from '../actions/actions';
 import * as api from '../api/authapi';
 
 function* loginRequest(action: any): Generator {
@@ -30,6 +30,19 @@ function* registerRequest(action: any): Generator {
     }
 }
 
+function* getHotelsRequest(): Generator {
+    try {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const response: any = yield api.getHotels();
+        console.log(response);
+        if (response) {
+            yield put(getAllHotelsSuccess(response));
+        }
+    } catch (error) {
+        yield put(registerError());
+    }
+}
+
 // function* logoutRequest() {
 //     try {
 //         yield call(api.logout);
@@ -50,7 +63,9 @@ function* register() {
 function* login() {
     yield takeLatest(actionTypes.LOGIN_REQUEST, loginRequest);
 }
-
+function* getAllHotels() {
+    yield takeLatest(actionTypes.GET_ALL_HOTElS, getHotelsRequest);
+}
 export default function* authsaga() {
-    yield all([fork(register), fork(login)]);
+    yield all([fork(register), fork(login), fork(getAllHotels)]);
 }

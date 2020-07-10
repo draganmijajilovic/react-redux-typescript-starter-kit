@@ -6,16 +6,18 @@ import { getType } from 'typesafe-actions';
 const intialState: UserState = {
     isLoggedIn: false,
     user: {},
+    hotels: [],
     token: '',
 };
 
 const reducer = (state = intialState, action: any): UserState => {
-    console.log(action.payload);
     switch (action.type) {
         case actionTypes.REGISTER_SUCCESS:
             return { ...state, isLoggedIn: true, user: action?.payload?.data };
         case actionTypes.LOGIN_SUCCESS:
             return { ...state, isLoggedIn: true, user: action?.payload?.data };
+        case actionTypes.GET_ALL_HOTElS_SUCCESS:
+            return { ...state, hotels: action?.payload?.data };
         case actionTypes.REGISTER_ERROR:
         case actionTypes.LOGIN_ERROR:
             return intialState;

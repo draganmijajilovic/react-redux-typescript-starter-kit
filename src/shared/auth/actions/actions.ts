@@ -11,6 +11,8 @@ const actionTypes = {
     LOGIN_REQUEST: '@AUTH/LOGIN_SUCCESS',
     LOGIN_SUCCESS: '@AUTH/LOGIN_REQUEST',
     LOGIN_ERROR: '@AUTH/LOGIN_ERROR',
+    GET_ALL_HOTElS: '@HOTELS/GET_ALL_HOTELS',
+    GET_ALL_HOTElS_SUCCESS: '@HOTELS/GET_ALL_HOTELS_SUCCESS',
 };
 export default actionTypes;
 
@@ -70,6 +72,18 @@ export function loginSuccess(data: any) {
 export function loginError() {
     return {
         type: actionTypes.LOGIN_ERROR,
+    };
+}
+
+export function getAllHotels() {
+    return {
+        type: actionTypes.GET_ALL_HOTElS,
+    };
+}
+export function getAllHotelsSuccess(data: any) {
+    return {
+        type: actionTypes.GET_ALL_HOTElS_SUCCESS,
+        payload: data,
     };
 }
 // export type authActionTypes = ActionType<typeof fetchLoginAsync | typeof fetchLogoutAsync | typeof fetchRegisterAsync>;
