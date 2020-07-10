@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Typography,
     Button,
@@ -26,6 +26,53 @@ interface LoginProps {
 
 function Login(props: LoginProps) {
     const classes = useStyles();
+    const [isLoginForm, toggleIslogin] = useState(true);
+    const toggleLoginRegister = () => {
+        toggleIslogin(!isLoginForm);
+        console.log(isLoginForm);
+    }
+    const renderRegister = () => {
+        return (
+            <>
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="firstname"
+                    label="Firstname"
+                    type="text"
+                    id="firstname"
+                    autoComplete="off"
+                    color="primary"
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="lastname"
+                    label="lastname"
+                    type="text"
+                    id="lastname"
+                    autoComplete="off"
+                    color="primary"
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="email"
+                    label="E mail"
+                    type="email"
+                    id="email"
+                    autoComplete="off"
+                    color="primary"
+                />
+            </>
+        )
+    }
     return (
         <React.Fragment>
             <MuiThemeProvider theme={logintheme}>
@@ -44,9 +91,9 @@ function Login(props: LoginProps) {
                                 margin="normal"
                                 required
                                 fullWidth
-                                id="email"
-                                label="Email Address"
-                                name="email"
+                                id="username"
+                                label="Username"
+                                name="username"
                                 autoComplete="off"
                                 autoFocus
                             />
@@ -62,7 +109,7 @@ function Login(props: LoginProps) {
                                 autoComplete="current-password"
                                 color="primary"
                             />
-
+                            {!isLoginForm && renderRegister()}
                             <Button
                                 type="button"
                                 fullWidth
@@ -72,6 +119,16 @@ function Login(props: LoginProps) {
                                 onClick={props.login}
                             >
                                 Sign In
+                            </Button>
+                            <Button
+                                type="button"
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                className={classes.submit}
+                                onClick={toggleLoginRegister}
+                            >
+                                register
                             </Button>
                             <Grid container alignItems="center">
                                 <Grid item xs={12} sm container justify="center">

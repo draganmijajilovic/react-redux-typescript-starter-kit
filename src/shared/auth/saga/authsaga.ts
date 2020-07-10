@@ -5,9 +5,12 @@ import * as api from '../api/authapi';
 function* loginRequest(action: ReturnType<typeof actionTypes.fetchLoginAsync.request>): Generator {
     try {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        console.log('HELLO ');
         const response: any = yield call(api.login);
+        console.log('HELLO ', response);
         if (response) yield put(actionTypes.fetchLoginAsync.success(response.data));
     } catch (error) {
+        console.log(error);
         yield put(actionTypes.fetchLoginAsync.failure(error));
     }
 }
@@ -22,6 +25,7 @@ function* logoutRequest() {
 }
 
 function* login() {
+    console.log('ej bre');
     yield takeLatest(actionTypes.fetchLoginAsync.request, loginRequest);
 }
 function* logout() {
