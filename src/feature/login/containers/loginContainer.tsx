@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
     Typography,
     Button,
@@ -15,26 +16,62 @@ import {
 import { DynamicModuleLoader } from 'redux-dynamic-modules';
 import { connect } from 'react-redux';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { fetchLoginAsync, fetchRegisterAsync } from '../../../shared/auth/actions/actions';
+import { register } from '../../../shared/auth/actions/actions';
 import { AuthModule } from '../../../shared/auth/module/module';
 import { useStyles } from '../styles/login';
 import { logintheme } from '../styles/logintheme';
 
 interface LoginProps {
-    login: typeof fetchLoginAsync.request;
-    register: typeof fetchRegisterAsync.request;
+    // login: typeof fetchLoginAsync.request;
+    // register: typeof fetchRegisterAsync.request;
 }
 
 function Login(props: LoginProps) {
     const classes = useStyles();
     const [isLoginForm, toggleIslogin] = useState(true);
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+    const [firstname, setFirstName] = useState('');
+    const [lastname, setLastname] = useState('');
+    const dispatch = useDispatch();
     const toggleLoginRegister = () => {
         toggleIslogin(!isLoginForm);
         console.log(isLoginForm);
     }
 
-    const renderLogin = () => {
+    const registerAction = () => {
+        dispatch(register({
+            data: {
+                username,
+                password,
+                email,
+                firstname,
+                lastname
+            }
+        }));
+    }
 
+    const handleChange = (event: any) => {
+        switch (event.target.name) {
+            case 'username':
+                setUsername(event.target.value)
+                break;
+            case 'password':
+                setPassword(event.target.value)
+                break;
+            case 'firstname':
+                setFirstName(event.target.value)
+                break;
+            case 'lastname':
+                setLastname(event.target.value)
+                break;
+            case 'email':
+                setEmail(event.target.value)
+                break;
+            default:
+                return;
+        }
     }
     const renderRegister = () => {
         return (
@@ -50,6 +87,7 @@ function Login(props: LoginProps) {
                     id="firstname"
                     autoComplete="off"
                     color="primary"
+                    onChange={handleChange}
                 />
                 <TextField
                     variant="outlined"
@@ -62,6 +100,7 @@ function Login(props: LoginProps) {
                     id="lastname"
                     autoComplete="off"
                     color="primary"
+                    onChange={handleChange}
                 />
                 <TextField
                     variant="outlined"
@@ -74,6 +113,7 @@ function Login(props: LoginProps) {
                     id="email"
                     autoComplete="off"
                     color="primary"
+                    onChange={handleChange}
                 />
             </>
         )
@@ -101,6 +141,7 @@ function Login(props: LoginProps) {
                                 name="username"
                                 autoComplete="off"
                                 autoFocus
+                                onChange={handleChange}
                             />
                             <TextField
                                 variant="outlined"
@@ -113,6 +154,7 @@ function Login(props: LoginProps) {
                                 id="password"
                                 autoComplete="current-password"
                                 color="primary"
+                                onChange={handleChange}
                             />
                             {!isLoginForm && renderRegister()}
                             <Button
@@ -121,7 +163,7 @@ function Login(props: LoginProps) {
                                 variant="contained"
                                 color="primary"
                                 className={classes.submit}
-                                onClick={isLoginForm ? props.login : props.register}
+                                onClick={isLoginForm ? registerAction : registerAction}
                             >
                                 {isLoginForm ? 'sign in ' : 'register'}
                             </Button>
@@ -159,12 +201,19 @@ function Login(props: LoginProps) {
     );
 }
 
-const dispatchToProps = {
-    login: fetchLoginAsync.request,
-    register: fetchRegisterAsync.request,
-};
+// const dispatchToProps = {
+//     login: fetchLoginAsync.request,
+//     register: fetchRegisterAsync.request,
+// };
+// const mapDispatchToProps = (dispatch: any) => {
+//     return {
+//         // login: () => dispatch({ type: LOGIN_REQUEST, user: 'NoriSte', password: 'password' }),
+//         // logout: () => dispatch({ type: LOGOUT }),
+//         register: dispatch({ type: fetchRegisterAsync.request, user: 'NoriSte', password: 'password' }),
+//     };
+// }
 
-const ConnectedLogin = connect(undefined, dispatchToProps)(Login);
+const ConnectedLogin = connect(undefined, undefined)(Login);
 
 export const LoginContainer = () => (
     <DynamicModuleLoader modules={[AuthModule]}>

@@ -18,13 +18,14 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 type Props = {
-    isLoggedIn: boolean;
-    name: string;
-    login: typeof actionTypes.fetchLoginAsync.request;
+    // isLoggedIn: boolean;
+    // name: string;
+    // login: typeof actionTypes.fetchLoginAsync.request;
 };
 
 const Landing = (props: Props) => {
-    const { isLoggedIn } = props;
+    // const { isLoggedIn } = props;
+    const isLoggedIn = false;
     const match = useRouteMatch();
     const classes = useStyles();
 
@@ -37,8 +38,8 @@ const Landing = (props: Props) => {
             </Switch>
         </div>
     ) : (
-        <Redirect to={{ pathname: '/home' }} />
-    );
+            <Redirect to={{ pathname: '/home' }} />
+        );
 };
 
 const mapStateToProps = (state: AuthState) => {
@@ -49,7 +50,7 @@ const mapStateToProps = (state: AuthState) => {
 };
 
 const dispatchToProps = {
-    login: actionTypes.fetchLoginAsync.request,
+    // login: actionTypes.fetchLoginAsync.request,
 };
 
-export const LandingContainer = connect(mapStateToProps, dispatchToProps)(Landing);
+export const LandingContainer = connect(null, null)(Landing);

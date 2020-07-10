@@ -20,7 +20,8 @@ export function login() {
     });
 }
 
-export function register() {
+export function register(action: any) {
+    console.log(action);
     const userdetail: dataTypes.LoginDetails = {
         username: 'jeeva',
         password: 'pwd',

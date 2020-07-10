@@ -4,12 +4,18 @@ import { UserAuthInfo } from '../types/userAuthInfo';
 /*
  *  THE FOLLOWING CODES DENOTES TO DO ASYNC ACTIONS
  */
-export const fetchLoginAsync = createAsyncAction(
-    '@AUTH/LOGIN_REQUEST',
-    '@AUTH/LOGIN_SUCCESS',
-    '@AUTH/LOGIN_FAILURE',
-    '@AUTH/LOGIN_CANCEL',
-)<undefined, UserAuthInfo, Error, string>();
+const actionTypes = {
+    REGISTER_REQUEST: '@AUTH/REGISTER_REQUEST',
+    REGISTER_SUCCESS: '@AUTH/REGISTER_SUCCESS',
+};
+export default actionTypes;
+
+// export const fetchLoginAsync = createAsyncAction(
+//     '@AUTH/LOGIN_REQUEST',
+//     '@AUTH/LOGIN_SUCCESS',
+//     '@AUTH/LOGIN_FAILURE',
+//     '@AUTH/LOGIN_CANCEL',
+// )<undefined, UserAuthInfo, Error, string>();
 // types.LoginDetails
 
 export const fetchLogoutAsync = createAsyncAction(
@@ -26,4 +32,11 @@ export const fetchRegisterAsync = createAsyncAction(
     '@AUTH/REGISTER_CANCEL',
 )<undefined, UserAuthInfo, Error, string>();
 
-export type authActionTypes = ActionType<typeof fetchLoginAsync | typeof fetchLogoutAsync | typeof fetchRegisterAsync>;
+export function register(data: any) {
+    return {
+        type: actionTypes.REGISTER_REQUEST,
+        payload: data,
+    };
+}
+
+// export type authActionTypes = ActionType<typeof fetchLoginAsync | typeof fetchLogoutAsync | typeof fetchRegisterAsync>;

@@ -8,10 +8,10 @@ const intialState: UserState = {
     name: 'Jeeva',
 };
 
-const reducer = (state = intialState, action: actionType.authActionTypes): UserState => {
+const reducer = (state = intialState, action: any): UserState => {
     switch (action.type) {
-        case getType(actionType.fetchLoginAsync.success):
-            return action.payload;
+        // case getType(actionType.fetchLoginAsync.success):
+        //     return action.payload;
         case getType(actionType.fetchLogoutAsync.success):
             return { ...state, isLoggedIn: false, name: '' };
         default:
