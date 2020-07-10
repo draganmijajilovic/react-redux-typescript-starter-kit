@@ -19,4 +19,11 @@ export const fetchLogoutAsync = createAsyncAction(
     '@AUTH/LOGOUT_CANCEL',
 )<undefined, boolean, Error, string>();
 
-export type authActionTypes = ActionType<typeof fetchLoginAsync | typeof fetchLogoutAsync>;
+export const fetchRegisterAsync = createAsyncAction(
+    '@AUTH/REGISTER_REQUEST',
+    '@AUTH/REGISTER_SUCCESS',
+    '@AUTH/REGISTER_FAILURE',
+    '@AUTH/REGISTER_CANCEL',
+)<undefined, UserAuthInfo, Error, string>();
+
+export type authActionTypes = ActionType<typeof fetchLoginAsync | typeof fetchLogoutAsync | typeof fetchRegisterAsync>;

@@ -15,13 +15,14 @@ import {
 import { DynamicModuleLoader } from 'redux-dynamic-modules';
 import { connect } from 'react-redux';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { fetchLoginAsync } from '../../../shared/auth/actions/actions';
+import { fetchLoginAsync, fetchRegisterAsync } from '../../../shared/auth/actions/actions';
 import { AuthModule } from '../../../shared/auth/module/module';
 import { useStyles } from '../styles/login';
 import { logintheme } from '../styles/logintheme';
 
 interface LoginProps {
     login: typeof fetchLoginAsync.request;
+    register: typeof fetchRegisterAsync.request;
 }
 
 function Login(props: LoginProps) {
@@ -30,6 +31,10 @@ function Login(props: LoginProps) {
     const toggleLoginRegister = () => {
         toggleIslogin(!isLoginForm);
         console.log(isLoginForm);
+    }
+
+    const renderLogin = () => {
+
     }
     const renderRegister = () => {
         return (
@@ -116,9 +121,9 @@ function Login(props: LoginProps) {
                                 variant="contained"
                                 color="primary"
                                 className={classes.submit}
-                                onClick={props.login}
+                                onClick={isLoginForm ? props.login : props.register}
                             >
-                                Sign In
+                                {isLoginForm ? 'sign in ' : 'register'}
                             </Button>
                             <Button
                                 type="button"
@@ -128,8 +133,11 @@ function Login(props: LoginProps) {
                                 className={classes.submit}
                                 onClick={toggleLoginRegister}
                             >
-                                register
+                                register instead
                             </Button>
+                            <Link href="#" variant="body2" color="textPrimary" >
+                                Forgot password?
+                            </Link>
                             <Grid container alignItems="center">
                                 <Grid item xs={12} sm container justify="center">
                                     <Link href="#" variant="body2" color="textPrimary">
@@ -147,12 +155,13 @@ function Login(props: LoginProps) {
                     </div>
                 </Container>
             </MuiThemeProvider>
-        </React.Fragment>
+        </React.Fragment >
     );
 }
 
 const dispatchToProps = {
     login: fetchLoginAsync.request,
+    register: fetchRegisterAsync.request,
 };
 
 const ConnectedLogin = connect(undefined, dispatchToProps)(Login);

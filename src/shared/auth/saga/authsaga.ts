@@ -15,6 +15,19 @@ function* loginRequest(action: ReturnType<typeof actionTypes.fetchLoginAsync.req
     }
 }
 
+function* registerRequest(action: ReturnType<typeof actionTypes.fetchRegisterAsync.request>): Generator {
+    try {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        console.log('HELLO ');
+        const response: any = yield call(api.register);
+        console.log('HELLO ', response);
+        if (response) yield put(actionTypes.fetchRegisterAsync.success(response.data));
+    } catch (error) {
+        console.log(error);
+        yield put(actionTypes.fetchRegisterAsync.failure(error));
+    }
+}
+
 function* logoutRequest() {
     try {
         yield call(api.logout);
@@ -25,13 +38,18 @@ function* logoutRequest() {
 }
 
 function* login() {
-    console.log('ej bre');
+    console.log('login');
     yield takeLatest(actionTypes.fetchLoginAsync.request, loginRequest);
+}
+
+function* register() {
+    console.log('register');
+    yield takeLatest(actionTypes.fetchRegisterAsync.request, registerRequest);
 }
 function* logout() {
     yield takeLatest(actionTypes.fetchLogoutAsync.request, logoutRequest);
 }
 
 export default function* authsaga() {
-    yield all([fork(login), fork(logout)]);
+    yield all([fork(login), fork(register), fork(logout)]);
 }

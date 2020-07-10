@@ -11,12 +11,27 @@ export function login() {
         password: 'pwd',
     };
 
-    return axios.post('register/', {
+    return axios.post('login/', {
         username: 'dragan',
         password: 'dragan',
         email: 'fjsdijf@gmail.com',
         first_name: 'gane',
         last_name: 'gandra',
+    });
+}
+
+export function register() {
+    const userdetail: dataTypes.LoginDetails = {
+        username: 'jeeva',
+        password: 'pwd',
+    };
+
+    return axios.post('register/', {
+        username: 'dgfdragan',
+        password: 'draggfdan',
+        email: 'gfd@gmail.com',
+        first_name: 'gangfde',
+        last_name: 'gandgfra',
     });
 }
 
