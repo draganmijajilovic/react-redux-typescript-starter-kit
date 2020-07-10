@@ -15,14 +15,12 @@ function* loginRequest(action: any): Generator {
             yield put(loginSuccess(response));
         }
     } catch (error) {
-        console.log(error);
         // TODO catch error
         // yield put(actionTypes.fetchLoginAsync.failure(error));
     }
 }
 
 function* registerRequest(action: any): Generator {
-    console.log('action', action);
     try {
         const response: any = yield api.register(action);
         if (response) {
@@ -36,7 +34,6 @@ function* registerRequest(action: any): Generator {
 function* getHotelsRequest(): Generator {
     try {
         const response: any = yield api.getHotels();
-        console.log(response);
         if (response) {
             yield put(getAllHotelsSuccess(response));
         }
@@ -46,11 +43,21 @@ function* getHotelsRequest(): Generator {
 }
 
 function* getHotelDetailRequest(action: any): Generator {
-    console.log('hotel details', action);
     try {
         const response: any = yield api.getHotelDetails(action?.payload);
         if (response) {
             yield put(getHotelDetailSuccess(response));
+        }
+    } catch (error) {
+        yield put(registerError());
+    }
+}
+
+function* addNewHotelRequest(action: any): Generator {
+    try {
+        const response: any = yield api.addHotel(action?.payload);
+        if (response) {
+            return response;
         }
     } catch (error) {
         yield put(registerError());
@@ -69,6 +76,10 @@ function* getAllHotels() {
 function* getHotelDetail() {
     yield takeLatest(actionTypes.GET_HOTEL_DETAIL_REQUEST, getHotelDetailRequest);
 }
+
+function* addNewHotel() {
+    yield takeLatest(actionTypes.ADD_NEW_HOTEL, addNewHotelRequest);
+}
 export default function* authsaga() {
-    yield all([fork(register), fork(login), fork(getAllHotels), fork(getHotelDetail)]);
+    yield all([fork(register), fork(login), fork(getAllHotels), fork(getHotelDetail), fork(addNewHotel)]);
 }

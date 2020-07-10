@@ -9,6 +9,7 @@ const actionTypes = {
     GET_ALL_HOTElS_SUCCESS: '@HOTELS/GET_ALL_HOTELS_SUCCESS',
     GET_HOTEL_DETAIL_REQUEST: '@HOTELS/GET_HOTEL_DETAIL_REQUEST',
     GET_HOTEL_DETAIL_SUCCESS: '@HOTELS/GET_HOTEL_DETAIL_SUCCESS',
+    ADD_NEW_HOTEL: '@HOTELS/ADD_NEW_HOTEL',
 };
 export default actionTypes;
 
@@ -69,6 +70,13 @@ export function getHotelDetail(data: any) {
 export function getHotelDetailSuccess(data: any) {
     return {
         type: actionTypes.GET_HOTEL_DETAIL_SUCCESS,
+        payload: data,
+    };
+}
+
+export function addNewHotel(data: any) {
+    return {
+        type: actionTypes.ADD_NEW_HOTEL,
         payload: data,
     };
 }

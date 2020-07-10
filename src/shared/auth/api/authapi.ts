@@ -10,7 +10,6 @@ export async function login(action: any) {
     const userdetails = action?.payload?.data;
     const response = await getAuthToken(userdetails.username, userdetails.password);
     token = response?.data?.token;
-    console.log(token);
     return response;
 }
 
@@ -25,6 +24,23 @@ export function getHotels() {
 }
 export function getHotelDetails(data: number) {
     return axios.get(`/hotel_api/${data}`, { headers: { Authorization: `Token ${token}` } });
+}
+
+export function addHotel(data: any) {
+    return axios.post(
+        '/hotel_api/',
+        {
+            name: data.name,
+            city: data.city,
+            country: data.country,
+            stars: data.stars,
+            description: data.description,
+            price: data.price,
+            location: 1.5,
+            user: [1],
+        },
+        { headers: { Authorization: `Token ${token}` } },
+    );
 }
 
 export async function register(action: any) {

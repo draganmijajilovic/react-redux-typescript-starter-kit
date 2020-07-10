@@ -20,7 +20,6 @@ const reducer = (state = intialState, action: any): UserState => {
         case actionTypes.GET_ALL_HOTElS_SUCCESS:
             return { ...state, hotels: action?.payload?.data };
         case actionTypes.GET_HOTEL_DETAIL_SUCCESS:
-            console.log(action?.payload?.data);
             return { ...state, hotelDetail: action?.payload?.data };
         case actionTypes.REGISTER_ERROR:
         case actionTypes.LOGIN_ERROR:
