@@ -23,6 +23,9 @@ function getAuthToken(username: string, password: string) {
 export function getHotels() {
     return axios.get('/hotel_api', { headers: { Authorization: `Token ${token}` } });
 }
+export function getHotelDetails(data: any) {
+    return axios.get(`/hotel_api${data.id}`, { headers: { Authorization: `Token ${token}` } });
+}
 
 export async function register(action: any) {
     const userdetails = action?.payload?.data;

@@ -1,9 +1,3 @@
-import { createAsyncAction, ActionType } from 'typesafe-actions';
-import { UserAuthInfo } from '../types/userAuthInfo';
-
-/*
- *  THE FOLLOWING CODES DENOTES TO DO ASYNC ACTIONS
- */
 const actionTypes = {
     REGISTER_REQUEST: '@AUTH/REGISTER_REQUEST',
     REGISTER_SUCCESS: '@AUTH/REGISTER_SUCCESS',
@@ -13,30 +7,10 @@ const actionTypes = {
     LOGIN_ERROR: '@AUTH/LOGIN_ERROR',
     GET_ALL_HOTElS: '@HOTELS/GET_ALL_HOTELS',
     GET_ALL_HOTElS_SUCCESS: '@HOTELS/GET_ALL_HOTELS_SUCCESS',
+    GET_HOTEL_DETAIL_REQUEST: '@HOTELS/GET_HOTEL_DETAIL_REQUEST',
+    GET_HOTEL_DETAIL_SUCCESS: '@HOTELS/GET_HOTEL_DETAIL_SUCCESS',
 };
 export default actionTypes;
-
-// export const fetchLoginAsync = createAsyncAction(
-//     '@AUTH/LOGIN_REQUEST',
-//     '@AUTH/LOGIN_SUCCESS',
-//     '@AUTH/LOGIN_FAILURE',
-//     '@AUTH/LOGIN_CANCEL',
-// )<undefined, UserAuthInfo, Error, string>();
-// types.LoginDetails
-
-export const fetchLogoutAsync = createAsyncAction(
-    '@AUTH/LOGOUT_REQUEST',
-    '@AUTH/LOGOUT_SUCCESS',
-    '@AUTH/LOGOUT_FAILURE',
-    '@AUTH/LOGOUT_CANCEL',
-)<undefined, boolean, Error, string>();
-
-export const fetchRegisterAsync = createAsyncAction(
-    '@AUTH/REGISTER_REQUEST',
-    '@AUTH/REGISTER_SUCCESS',
-    '@AUTH/REGISTER_FAILURE',
-    '@AUTH/REGISTER_CANCEL',
-)<undefined, UserAuthInfo, Error, string>();
 
 export function register(data: any) {
     return {
@@ -83,6 +57,12 @@ export function getAllHotels() {
 export function getAllHotelsSuccess(data: any) {
     return {
         type: actionTypes.GET_ALL_HOTElS_SUCCESS,
+        payload: data,
+    };
+}
+export function getHotelDetail(data: any) {
+    return {
+        type: actionTypes.GET_HOTEL_DETAIL_REQUEST,
         payload: data,
     };
 }

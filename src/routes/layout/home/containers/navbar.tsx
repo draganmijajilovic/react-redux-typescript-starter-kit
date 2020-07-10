@@ -12,17 +12,15 @@ import { connect } from 'react-redux';
 import { LayoutModule } from '../module/module';
 import { toggleSidebar } from '../actions/actions';
 import { LayoutRootType } from '../types';
-import { fetchLogoutAsync } from '../../../../shared/auth/actions/actions';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 interface NavProps {
     open: boolean;
     toggleOpen: () => void;
-    logout: typeof fetchLogoutAsync.request;
 }
 
 function Navbar(props: NavProps) {
-    const { open, toggleOpen, logout } = props;
+    const { open, toggleOpen } = props;
     const classes = useStyles();
     const toggleDrawer = () => {
         toggleOpen();
@@ -70,7 +68,7 @@ function Navbar(props: NavProps) {
                         <NotificationsIcon />
                     </Badge>
                 </IconButton>
-                <IconButton color="inherit" onClick={logout}>
+                <IconButton color="inherit">
                     <ExitToAppIcon />
                 </IconButton>
             </Toolbar>
@@ -86,7 +84,6 @@ const mapStateToProps = (state: LayoutRootType) => {
 
 const dispatchToProps = {
     toggleOpen: toggleSidebar,
-    logout: fetchLogoutAsync.request,
 };
 
 const ConnectedNavbar = connect(mapStateToProps, dispatchToProps)(Navbar);

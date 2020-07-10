@@ -30,6 +30,17 @@ function DashboardRender(props: DashboardProps) {
             >
                 Load Hotels
             </Button>
+            <Button
+                type="button"
+                fullWidth
+                variant="contained"
+                color="primary"
+                style={{ maxWidth: '150px' }}
+                className={classes.submit}
+                onClick={loadHotels}
+            >
+                Add new hotel:
+            </Button>
             {allHotels?.length > 0 && allHotels.map((hotel, index) => (<HotelsTemplate hotel={hotel} key={index} />))}
         </React.Fragment>
     );

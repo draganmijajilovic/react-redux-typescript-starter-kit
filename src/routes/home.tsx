@@ -11,8 +11,8 @@ import { SidebarContainer } from './layout/home/containers/sidebar';
 import { Dashboard } from '../feature/dashboard/components/dahsboard';
 
 type Props = {
-    isLoggedIn: boolean;
-    logout: typeof actionTypes.fetchLogoutAsync.request;
+    isLoggedIn?: boolean;
+
 };
 
 const Home = (props: Props) => {
@@ -43,8 +43,4 @@ const mapStateToProps = (state: AuthMainStateType) => {
     };
 };
 
-const dispatchToProps = {
-    logout: actionTypes.fetchLogoutAsync.request,
-};
-
-export const HomeContainer = connect(mapStateToProps, dispatchToProps)(Home);
+export const HomeContainer = connect(mapStateToProps, null)(Home);
