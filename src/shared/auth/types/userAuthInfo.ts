@@ -3,4 +3,5 @@ export interface UserAuthInfo {
     user: {};
     token: string;
     hotels: [];
+    hotelDetail: {};
 }

@@ -1,12 +1,16 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { getHotelDetail } from '../../../../shared/auth/actions/actions';
 
 interface HotelsTemplateProps {
     hotel: any;
 }
 
 export function HotelsTemplate(props: HotelsTemplateProps) {
+    const dispatch = useDispatch();
+    let hotelDetails = null;
     const getHoteldetails = () => {
-        // dispatch get hotes details
+        hotelDetails = dispatch(getHotelDetail(props.hotel?.id));
     }
     return (
         <div style={{ display: 'flex', padding: '20px' }} onClick={getHoteldetails}>

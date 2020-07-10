@@ -66,4 +66,10 @@ export function getHotelDetail(data: any) {
         payload: data,
     };
 }
+export function getHotelDetailSuccess(data: any) {
+    return {
+        type: actionTypes.GET_HOTEL_DETAIL_SUCCESS,
+        payload: data,
+    };
+}
 // export type authActionTypes = ActionType<typeof fetchLoginAsync | typeof fetchLogoutAsync | typeof fetchRegisterAsync>;

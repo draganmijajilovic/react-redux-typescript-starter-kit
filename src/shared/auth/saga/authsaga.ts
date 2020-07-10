@@ -1,5 +1,11 @@
 import { call, put, takeLatest, all, fork } from 'redux-saga/effects';
-import actionTypes, { registerSuccess, registerError, loginSuccess, getAllHotelsSuccess } from '../actions/actions';
+import actionTypes, {
+    registerSuccess,
+    registerError,
+    loginSuccess,
+    getAllHotelsSuccess,
+    getHotelDetailSuccess,
+} from '../actions/actions';
 import * as api from '../api/authapi';
 
 function* loginRequest(action: any): Generator {
@@ -40,11 +46,11 @@ function* getHotelsRequest(): Generator {
 }
 
 function* getHotelDetailRequest(action: any): Generator {
+    console.log('hotel details', action);
     try {
-        const response: any = yield api.getHotelDetails(action);
-        console.log(response);
+        const response: any = yield api.getHotelDetails(action?.payload);
         if (response) {
-            yield put(getAllHotelsSuccess(response));
+            yield put(getHotelDetailSuccess(response));
         }
     } catch (error) {
         yield put(registerError());
