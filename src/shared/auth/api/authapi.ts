@@ -5,23 +5,18 @@ import * as dataTypes from '../types';
 axios.defaults.baseURL = 'http://127.0.0.1:8000';
 
 // userdetail: dataTypes.LoginDetails
-export function login() {
-    const userdetail: dataTypes.LoginDetails = {
-        username: 'jeeva',
-        password: 'pwd',
-    };
+export function login(action: any) {
+    const userdetails = action?.payload?.data;
+    console.log('logindata', action.payload.data);
 
-    return axios.post('login/', {
-        username: 'dragan',
-        password: 'dragan',
-        email: 'fjsdijf@gmail.com',
-        first_name: 'gane',
-        last_name: 'gandra',
+    return axios.post('/api-token-auth/', {
+        username: userdetails.username,
+        password: userdetails.password,
     });
 }
 
 export function register(action: any) {
-    const userdetails = action.payload.data;
+    const userdetails = action?.payload?.data;
 
     return axios.post('register/', {
         username: userdetails.username,

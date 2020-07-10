@@ -7,6 +7,10 @@ import { UserAuthInfo } from '../types/userAuthInfo';
 const actionTypes = {
     REGISTER_REQUEST: '@AUTH/REGISTER_REQUEST',
     REGISTER_SUCCESS: '@AUTH/REGISTER_SUCCESS',
+    REGISTER_ERROR: '@AUTH/REGISTER_ERROR',
+    LOGIN_REQUEST: '@AUTH/LOGIN_SUCCESS',
+    LOGIN_SUCCESS: '@AUTH/LOGIN_REQUEST',
+    LOGIN_ERROR: '@AUTH/LOGIN_ERROR',
 };
 export default actionTypes;
 
@@ -35,6 +39,23 @@ export const fetchRegisterAsync = createAsyncAction(
 export function register(data: any) {
     return {
         type: actionTypes.REGISTER_REQUEST,
+        payload: data,
+    };
+}
+export function registerSuccess(data: any) {
+    return {
+        type: actionTypes.REGISTER_SUCCESS,
+        payload: data,
+    };
+}
+export function registerError() {
+    return {
+        type: actionTypes.REGISTER_ERROR,
+    };
+}
+export function login(data: any) {
+    return {
+        type: actionTypes.LOGIN_REQUEST,
         payload: data,
     };
 }

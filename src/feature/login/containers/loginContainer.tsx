@@ -16,7 +16,7 @@ import {
 import { DynamicModuleLoader } from 'redux-dynamic-modules';
 import { connect } from 'react-redux';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { register } from '../../../shared/auth/actions/actions';
+import { register, login } from '../../../shared/auth/actions/actions';
 import { AuthModule } from '../../../shared/auth/module/module';
 import { useStyles } from '../styles/login';
 import { logintheme } from '../styles/logintheme';
@@ -50,6 +50,15 @@ function Login(props: LoginProps) {
                 last_name
             }
         }));
+    }
+
+    const loginAction = () => {
+        dispatch(login({
+            data: {
+                username,
+                password,
+            }
+        }))
     }
 
     const handleChange = (event: any) => {
@@ -163,7 +172,7 @@ function Login(props: LoginProps) {
                                 variant="contained"
                                 color="primary"
                                 className={classes.submit}
-                                onClick={isLoginForm ? registerAction : registerAction}
+                                onClick={isLoginForm ? loginAction : registerAction}
                             >
                                 {isLoginForm ? 'sign in ' : 'register'}
                             </Button>

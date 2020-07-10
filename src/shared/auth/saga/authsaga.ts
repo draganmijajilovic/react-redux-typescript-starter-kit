@@ -1,31 +1,32 @@
 import { call, put, takeLatest, all, fork } from 'redux-saga/effects';
-import actionTypes from '../actions/actions';
+import actionTypes, { registerSuccess, registerError } from '../actions/actions';
 import * as api from '../api/authapi';
 
-// function* loginRequest(action: ReturnType<typeof actionTypes.fetchLoginAsync.request>): Generator {
-//     try {
-//         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-//         console.log('HELLO ');
-//         const response: any = yield call(api.login);
-//         console.log('HELLO ', response);
-//         if (response) yield put(actionTypes.fetchLoginAsync.success(response.data));
-//     } catch (error) {
-//         console.log(error);
-//         yield put(actionTypes.fetchLoginAsync.failure(error));
-//     }
-// }
+function* loginRequest(action: any): Generator {
+    try {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const response: any = yield api.login(action);
+        console.log('login response', response);
+        if (response) {
+            yield api.login(action);
+        }
+    } catch (error) {
+        console.log(error);
+        // TODO catch error
+        // yield put(actionTypes.fetchLoginAsync.failure(error));
+    }
+}
 
 function* registerRequest(action: any): Generator {
     console.log('action', action);
     try {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        console.log('HELLO ');
         const response: any = yield api.register(action);
-        console.log('HELLO ', response);
-        // if (response) yield put(actionTypes.REGISTER_SUCCESS(response));
+        if (response) {
+            yield put(registerSuccess(response));
+        }
     } catch (error) {
-        console.log(error);
-        // yield put(actionTypes.fetchRegisterAsync.failure(error));
+        yield put(registerError());
     }
 }
 
@@ -47,10 +48,10 @@ function* register() {
     console.log('register');
     yield takeLatest(actionTypes.REGISTER_REQUEST, registerRequest);
 }
-// function* logout() {
-//     yield takeLatest(actionTypes.fetchLogoutAsync.request, logoutRequest);
-// }
+function* login() {
+    yield takeLatest(actionTypes.LOGIN_REQUEST, loginRequest);
+}
 
 export default function* authsaga() {
-    yield all([fork(register)]);
+    yield all([fork(register), fork(login)]);
 }

@@ -1,4 +1,4 @@
-import * as actionType from '../actions/actions';
+import actionTypes from '../actions/actions';
 import { UserState } from '../types';
 import { getType } from 'typesafe-actions';
 // import { fetchLoginAsync } from '../actions/actions';
@@ -6,14 +6,16 @@ import { getType } from 'typesafe-actions';
 const intialState: UserState = {
     isLoggedIn: false,
     name: 'Jeeva',
+    user: {},
 };
 
 const reducer = (state = intialState, action: any): UserState => {
+    console.log(action.payload);
     switch (action.type) {
-        // case getType(actionType.fetchLoginAsync.success):
-        //     return action.payload;
-        case getType(actionType.fetchLogoutAsync.success):
-            return { ...state, isLoggedIn: false, name: '' };
+        case actionTypes.REGISTER_SUCCESS:
+            return { ...state, isLoggedIn: true, user: action?.payload?.data };
+        case actionTypes.REGISTER_ERROR:
+            return intialState;
         default:
             return state;
     }
